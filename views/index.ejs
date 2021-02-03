@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TestApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The MEAN stack</title>
+</head>
+<body ng-controller="MainController as vm">
+
+  <input type="text" ng-model="vm.message">
+  <h1>{{ vm.message }}</h1>
+
+  <ul ng-repeat="person in vm.people">
+    <li>{{person}}</li>
+  </ul>
+
+  <ul ng-repeat="person in vm.serverPeople">
+    <li>{{person}}</li>
+  </ul>
+  
+  <script>
+    var clientPeople = <%- JSON.stringify(serverPeople) %>;
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+  <script src="/assets/js/app.js"></script>
+</body>
+</html>
