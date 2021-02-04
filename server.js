@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const config = require('./config/config');
+const mongoose = require('mongoose');
 
 const port = process.env.PORT || 3000;
 
@@ -8,6 +10,8 @@ const people = [
   'Ethan Hunt',
   'Sherlock Holmes'
 ]
+
+mongoose.connect(config.getDbConnectionString(), { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.set('view engine', 'ejs');
 app.use('/assets', express.static(__dirname + '/public'));

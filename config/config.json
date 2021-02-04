@@ -1,0 +1,5 @@
+{
+  "dbUser": "sample_user",
+  "dbPassword": "@strongPASSWORD123",
+  "dbName": "todo_db"
+}
