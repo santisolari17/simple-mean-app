@@ -3,6 +3,11 @@ const app = express();
 const config = require('./config/config');
 const mongoose = require('mongoose');
 
+const setupCtrl = require('./controllers/setupCtrl');
+const apiCtrl = require('./controllers/apiCtrl');
+setupCtrl(app);
+apiCtrl(app);
+
 const port = process.env.PORT || 3000;
 
 const people = [
