@@ -13,30 +13,31 @@ module.exports = (app) => {
     });
   })
 
-  app.get('api/todo/:id', (req, res) => {
-    Todos.findById({ _id: req.params.id }, (err, todo) => {
+  app.get('/api/todo/:id', (req, res) => {
+    Todos.findById(req.params.id, (err, todo) => {
       if (err) throw err;
 
-      res.send(todos);
+      res.send(todo);
     })
   })
 
-  app.post('api/todo', (req, res) => {
+  app.post('/api/todo', (req, res) => {
     if (req.body.id) {
       const toUpdate = {
         todo: req.body.todo,
+        username: req.body.username,
         isDone: req.body.isDone,
         hasAttachment: req.body.hasAttachment,
       };
 
-      Todos.findByIdAndUpdate(req.body.id, toUpdate, (err, todo) => {
+      Todos.updateOne({ _id: req.body.id }, toUpdate, (err) => {
         if (err) throw err;
 
-        res.send(`${todo._id} - Updated!`);
+        res.send(`${req.body.id} - Updated!`);
       })
     } else {
       const newTodo = new Todos({
-        username: 'holamundo',
+        username: req.body.username,
         todo: req.body.todo,
         isDone: req.body.isDone,
         hasAttachment: req.body.hasAttachment,
@@ -51,7 +52,7 @@ module.exports = (app) => {
   })
 
   app.delete('/api/todo', (req, res) => {
-    Todos.findByIdAndRemove(req.body.id, (err) => {
+    Todos.deleteOne({ _id: req.body.id }, (err) => {
       if (err) throw err;
 
       res.send(`${req.body.id} - Deleted!`);
